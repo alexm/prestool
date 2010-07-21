@@ -373,32 +373,32 @@ if ($c ~~ m/color/) {
 
 =code perl6
 
-regex num { \d ** 1..3 };
+my regex num { \d ** 1..3 };
 
-if 10    ~~ m/ <num> / {
+if 10    ~~ m/ <&num> / {
 }
 
 ======
 =title Named subrules and their content
 
 =code perl6
-regex num { \d ** 1..3 };
+my regex num { \d ** 1..3 };
 
-say 10    ~~ m/ <num> /;     # 10
+say 10    ~~ m/ <num=&num> /;     # 10
 say $/;                      # 10
 say $/<num>;                 # 10
 
-regex dot { \. };
+my regex dot { \. };
 
-regex ip { ^  <num> <dot> <num> <dot> <num> <dot> <num> $ };
+my regex ip { ^  <num=&num> <dot=&dot> <num=&num> <dot=&dot> <num=&num> <dot=&dot> <num=&num> $ };
 
-say "127.0.0.1" ~~ m/ <ip> /;      # 127.0.0.1
+say "127.0.0.1" ~~ m/ <ip=&ip> /;      # 127.0.0.1
 say $/;      # 127.0.0.1
 say $/<ip>;  # 127.0.0.1
 say $/<ip><num>[0]; # 127
 say $/<ip><num>[1]; # 0
 say $/<ip><num>[2]; # 0
-say $/<ip><num>[3]; # 0
+say $/<ip><num>[3]; # 1
 
 =======
 =title Reusing previous captures
